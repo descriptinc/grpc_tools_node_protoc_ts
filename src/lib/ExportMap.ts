@@ -47,7 +47,7 @@ export class ExportMap {
         });
 
         message.getEnumTypeList().forEach(enumType => {
-            const identifier = scope + "." + message.getName() + "." + enumType.getName();
+            const identifier = (scope ? scope + "." : "") + message.getName() + "." + enumType.getName();
             this.enumMap[identifier] = {
                 pkg: fileDescriptor.getPackage(),
                 fileName: fileDescriptor.getName(),
@@ -63,7 +63,8 @@ export class ExportMap {
         });
 
         fileDescriptor.getEnumTypeList().forEach(enumType => {
-            this.enumMap[scope + "." + enumType.getName()] = {
+            const entryName = `${scope ? scope + "." : ""}${enumType.getName()}`;
+            this.enumMap[entryName] = {
                 pkg: fileDescriptor.getPackage(),
                 fileName: fileDescriptor.getName(),
                 enumOptions: enumType.getOptions(),
