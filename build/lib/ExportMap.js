@@ -18,7 +18,8 @@ class ExportMap {
         const entryName = `${scope ? scope + "." : ""}${message.getName()}`;
         this.messageMap[entryName] = messageEntry;
         message.getNestedTypeList().forEach(nested => {
-            this.exportNested(scope + "." + message.getName(), fileDescriptor, nested);
+            const entryName = (scope ? scope + "." : "") + message.getName();
+            this.exportNested(entryName, fileDescriptor, nested);
         });
         message.getEnumTypeList().forEach(enumType => {
             const identifier = (scope ? scope + "." : "") + message.getName() + "." + enumType.getName();
